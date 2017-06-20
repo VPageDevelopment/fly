@@ -1,4 +1,4 @@
-@import 'pages/welcome.css';
+@import './pages/welcome.css';
 
 body{
 font-family: 'Fira Sans', sans-serif;
