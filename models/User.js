@@ -1,7 +1,4 @@
-
 const { Sequelize , sequelize } = require('../config/dbConnection');
-
-
 const User = sequelize.define('user' , {
     userID:{
         type:Sequelize.INTEGER.UNSIGNED,
@@ -15,10 +12,7 @@ const User = sequelize.define('user' , {
     },
     mobileNumber:{
         type:Sequelize.BIGINT,
-        unique:{
-            args:true,
-            msg:"Mobile Number is already exist"
-        },
+        unique:true,
         allowNull:false
     },
     email:{
@@ -36,16 +30,3 @@ const User = sequelize.define('user' , {
         type:Sequelize.STRING
     }
 } , {version:true});
-
-User
-    .sync()
-    .then(()=>User.create({
-        username:"surendar",
-        mobileNumber:9876543210,
-        email:"surendar@vpageinc.com",
-        password:"surendar",
-        comfirmPassword:"surendar"
-    }))
-    .catch(Sequelize.ValidationError,(err)=>{
-        console.log(err.errors[0].message)
-    })
