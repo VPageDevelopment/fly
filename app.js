@@ -5,6 +5,18 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var expressHbs = require('express-handlebars')
+var session = require('express-session')
+var passport = require('passport');
+var LocalStrategy = require('passport-local').Strategy;
+var flash = require('connect-flash');
+
+// importing dbConnection
+
+const {sequelize} = require('./config/dbConnection');
+// start the db sync ...
+sequelize.sync();
+
+// importing routes ...
 var index = require('./routes/index');
 var app = express();
 // view engine setup
@@ -22,8 +34,46 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+
+// Express Session 
+app.use(session({
+  secret: 'codepanda',
+  resave: false,
+  saveUninitialized: true,
+  //cookie: { secure: true }
+}))
+
+// Passport initialization ...
+app.use(passport.initialize());
+app.use(passport.session());
+
+// connect flash middleware
+app.use(flash());
+
+//set flash global variables in the response ...
+app.use((req,res,nxt)=>{
+  res.locals.successMsg = req.flash('successMsg');
+  res.locals.errorMsg = req.flash('errorMsg');
+  res.locals.error = req.flash('error');
+  nxt();
+});
+
+
+// Appling route to the particular router ...
 app.use('/', index);
+
+
+
+
+
+
+
+
+
+
+
 // catch 404 and forward to error handler
+
 app.use(function(req, res, next) {
   var err = new Error('Not Found');
   err.status = 404;

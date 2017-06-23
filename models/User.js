@@ -1,4 +1,4 @@
-const { Sequelize , sequelize } = require('../config/dbConnection');
+module.exports = (sequelize , Sequelize) => {
 const User = sequelize.define('user' , {
     userID:{
         type:Sequelize.INTEGER.UNSIGNED,
@@ -26,7 +26,9 @@ const User = sequelize.define('user' , {
     password:{
         type:Sequelize.STRING
     },
-    comfirmPassword:{
+    confirmPassword:{
         type:Sequelize.STRING
     }
 } , {version:true});
+    return User;
+}

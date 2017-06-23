@@ -15,4 +15,6 @@ const db = {
     sequelize
 };
 
+db.User = require('../models/User.js')(sequelize,Sequelize);
+
 module.exports = db;
