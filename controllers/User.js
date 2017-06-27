@@ -1,13 +1,13 @@
 const {User}  = require('../config/dbConnection');
 
-const createUser = (username , mobileNumber , email , password , confirmPassword) => {
+const createUser = (username,mobileNumber,email,password,terms) => {
     return User
                 .create({
                     username:username,
                     mobileNumber:mobileNumber,
                     email:email,
                     password:password,
-                    confirmPassword:confirmPassword
+                    terms:terms
                 })
 }
 

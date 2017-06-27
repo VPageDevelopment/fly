@@ -1,13 +1,9 @@
-const getError = (errorArray) => {
-    const i = 0;
-    const validationError = [] ;
-    for(i=0 ; i < errorArray.lenght; i++){
-        validationError.push(errorArray[i].message);
-    }
-
-    return validationError;
+const getError = (e) => {
+     var sError = e.errors;
+      var vError = [];
+      for (var i = 0; i < sError.length; i++) {
+          vError.push(sError[i].message);
+      } 
+   return vError;
 }
-
 module.exports = { getError };
-
-

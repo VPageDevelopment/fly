@@ -4,8 +4,8 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
-var expressHbs = require('express-handlebars')
-var session = require('express-session')
+var expressHbs = require('express-handlebars');
+var session = require('express-session');
 var passport = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
 var flash = require('connect-flash');
@@ -18,6 +18,9 @@ sequelize.sync();
 
 // importing routes ...
 var index = require('./routes/index');
+var user = require('./routes/user.js');
+
+// app init ..
 var app = express();
 // view engine setup
 app.engine('.hbs',expressHbs(
@@ -39,7 +42,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(session({
   secret: 'codepanda',
   resave: false,
-  saveUninitialized: true,
+  saveUninitialized: false,
   //cookie: { secure: true }
 }))
 
@@ -60,15 +63,12 @@ app.use((req,res,nxt)=>{
 
 
 // Appling route to the particular router ...
+
+// login dashboard ..
 app.use('/', index);
 
-
-
-
-
-
-
-
+// user routes ...
+app.use('/user' , user);
 
 
 

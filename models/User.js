@@ -1,5 +1,5 @@
 module.exports = (sequelize , Sequelize) => {
-const User = sequelize.define('user' , {
+const User = sequelize.define('user',{
     userID:{
         type:Sequelize.INTEGER.UNSIGNED,
         primaryKey:true,
@@ -8,12 +8,27 @@ const User = sequelize.define('user' , {
     },
     username:{
         type:Sequelize.STRING,
-        allowNull:false
+        allowNull:false,
+        validate:{
+            isAlpha:{
+                args:true,
+                msg:"User name should contain only letter"
+            }
+        }
     },
     mobileNumber:{
-        type:Sequelize.BIGINT,
+        type:Sequelize.INTEGER.UNSIGNED,
         unique:true,
-        allowNull:false
+        allowNull:false,
+        validate:{
+           isInt:{
+               msg:"Please enter a valid number"
+           },
+           len:{
+               args:[10,15],
+               msg:"Min length of the phone number is 10"
+           }
+        }
     },
     email:{
         type:Sequelize.STRING,
@@ -24,10 +39,17 @@ const User = sequelize.define('user' , {
         }
     },
     password:{
-        type:Sequelize.STRING
+        type:Sequelize.STRING,
+        validate:{
+            len:{
+               args:[8,16],
+               msg:"your password min length is 8 and max length is 16"
+           }
+        }
     },
-    confirmPassword:{
-        type:Sequelize.STRING
+    terms:{
+        type:Sequelize.ENUM,
+        values:['Yes','No']
     }
 } , {version:true});
     return User;

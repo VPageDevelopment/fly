@@ -21,5 +21,8 @@
     "passport-local": "^1.0.0",
     "sequelize": "^4.1.0",
     "serve-favicon": "~2.4.2"
+  },
+  "devDependencies": {
+    "shrinkwrap": "^0.4.0"
   }
 }

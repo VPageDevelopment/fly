@@ -4,6 +4,13 @@
             <h2 class="text-center brandname">Fly Tourist Global Service Pvt Ltd</h2>
             <div class="row">
                 <div class="col-xs-offset-3 col-xs-6 auth-form-wrapper">
+                    {{#if errors}}
+                        {{#each errors}}
+                            <div class="alert alert-danger">
+                                {{this}}
+                            </div>
+                        {{/each}}
+                    {{/if}}
                     <h3 class="brandname">Sign Up !</h3>
                     <form  method="post" action="/register">
                        <div class="form-group">
@@ -12,7 +19,7 @@
                        </div>
                        <div class="form-group">
                            <lable class="auth-lable" for="mobile-number">Mobile Number</lable>
-                           <input type="text" id="mobile-number" class="form-control" name="mobile-number" placeholder="eg:9876543210" required>
+                           <input type="tel" id="mobile-number" class="form-control" name="mobileNumber" placeholder="eg:9876543210" required>
                        </div>
                        <div class="form-group">
                            <lable class="auth-lable" for="email">Email</lable>
@@ -24,16 +31,16 @@
                        </div>
                        <div class="form-group">
                            <lable class="auth-lable" for="confirm-password">Confirm Password</lable>
-                           <input type="password" id="confirm-password" placeholder="*********" class="form-control" name="confirm-password">
+                           <input type="password" id="confirm-password" placeholder="*********" class="form-control" name="confirmPassword">
                        </div>
                        <div class="form-group">
                            <lable class="auth-lable">
-                               <input type="checkbox"> I Agree to <span >
+                               <input type="checkbox" checked="checked" name="terms" id="terms" value="Yes"> I Agree to <span >
                                    <a href="#" class="brand-secondary">Terms of Service</a>
                                    </span> and <span ><a href="#" class="brand-secondary">Privacy policy</a></span>
                            </lable>
                        </div>
-                       <button type="submit" class="btn btn-info">Sign up</button>
+                       <button type="submit" id="signUp" class="btn btn-info">Sign up</button>
                     </form>
                 </div>
                 <div class="col-xs-offset-3 col-xs-6">
