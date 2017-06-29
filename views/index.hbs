@@ -7,14 +7,6 @@
     <div class="container">
         <div class="row ">
             <div class="col-xs-12 col-sm-12 col-md-7 col-lg-7">
-                        {{#if errors}}
-                                {{#each errors}}
-                                    <div class="alert alert-danger">
-                                        {{message}} 
-                                    </div>
-                                {{/each}}
-                        {{/if}}
-        
                 <div class="tabContainer">
                     <!-- Nav tabs -->
                     <ul class="nav nav-tabs" role="tablist">
@@ -26,7 +18,15 @@
 
                     <!-- Tab panes -->
                     <div class="tab-content">
+                        
                         <div role="tabpanel" class="tab-pane active" id="signUpWrapper">
+                           {{#if errors}}
+                                {{#each errors}}
+                                    <div class="alert alert-danger">
+                                        {{message}} 
+                                    </div>
+                                {{/each}}
+                            {{/if}} 
                                 <h3>Sign Up !</h3>
                                 <form  method="post" action="/register">
                                     <div class="form-group">
@@ -60,6 +60,13 @@
                                 </form>
                         </div>
                         <div role="tabpanel" class="tab-pane" id="signInWrapper">
+                           {{#if errors}}
+                                {{#each errors}}
+                                    <div class="alert alert-danger">
+                                        {{message}} 
+                                    </div>
+                                {{/each}}
+                            {{/if}} 
                             <h3>Sign In !</h3>
                             <form action="/login" method="post">
                                     <div class="form-group">

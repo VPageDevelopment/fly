@@ -1,52 +1,18 @@
 var express = require('express');
 var router = express.Router();
-const { createUser } = require('../controllers/User');
-const { getError } = require('../helper/error.js');
+const { 
+        renderIndex,
+        registerUser,
+        loginUser
+      } = require("../controllers/Welcome");
+
 /* GET home page. */
-router.get('/', function(req, res, next) {
-  res.render('index');
-});
+router.get('/', renderIndex);
+
 // post for register ...
-router.post('/register', function(req, res, next) {
-  let 
-    username = req.body.username,
-    mobileNumber = req.body.mobileNumber,
-    email = req.body.email,
-    password = req.body.password,
-    confirmPassword = req.body.confirmPassword,
-    terms = req.body.terms;
-
-    if(mobileNumber.charAt(0) === '+'){
-      mobileNumber = mobileNumber.substr(1);
-    }
-    
-    console.log(mobileNumber);
-
-    // uncheck 
-    if (terms === undefined) terms = "No"
-
-    // to create a new user ...
-    createUser(
-      username,
-      mobileNumber, 
-      email, 
-      password,
-      terms
-    ) .then(()=>{
-        req.flash('successMsg' , 'you are registered successfully.. ');
-        res.redirect('/user/dashboard');
-      })
-      .catch((e)=>{
-        var vErr = getError(e); // vErr stands for validation error ...
-        console.log(vErr);
-
-        // if it has any error //
-        if(vErr) res.render('index', {errors:vErr})
-      })
-      
-});
+router.post('/register', registerUser);
 // post for login 
-router.post('/login', function(req, res, next) {
-  res.render('index');
-});
+
+router.post('/login', loginUser);
+
 module.exports = router;

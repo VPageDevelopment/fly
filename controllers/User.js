@@ -1,26 +1,15 @@
-const {User}  = require('../config/dbConnection');
+const { viewAllUsers } = require('../models/methods/User');
 
-const createUser = (username,mobileNumber,email,password,terms) => {
-    return User
-                .create({
-                    username:username,
-                    mobileNumber:mobileNumber,
-                    email:email,
-                    password:password,
-                    terms:terms
-                })
+const userDashboard = (req,res,next) =>{
+     viewAllUsers()
+            .then((user)=>{
+              console.log(user.mobileNumber)
+            })
+            .catch((e)=>{
+              console.log(e)
+            })
 }
 
-const viewAllUsers = () => {
-    return User.findAll();
-}
-
-const viewUser = (id) => {
-    return User.findOne({id});
-}
-
-module.exports ={
-    createUser,
-    viewUser,
-    viewAllUsers,
+module.exports = {
+    userDashboard
 }
