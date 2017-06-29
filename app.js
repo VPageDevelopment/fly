@@ -61,7 +61,6 @@ app.use((req,res,nxt)=>{
   nxt();
 });
 
-
 // Appling route to the particular router ...
 
 // login dashboard ..
@@ -70,10 +69,7 @@ app.use('/', index);
 // user routes ...
 app.use('/user' , user);
 
-
-
 // catch 404 and forward to error handler
-
 app.use(function(req, res, next) {
   var err = new Error('Not Found');
   err.status = 404;

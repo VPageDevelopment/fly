@@ -1,56 +1,92 @@
-<div class="container-fluid car-bg">
-    <div class="row ">
-        <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 auth-wrapper">
-            <h2 class="text-center brandname">Fly Tourist Global Service Pvt Ltd</h2>
-            <div class="row">
-                <div class="col-xs-offset-3 col-xs-6 auth-form-wrapper">
-                    {{#if errors}}
-                        {{#each errors}}
-                            <div class="alert alert-danger">
-                                {{this}}
-                            </div>
-                        {{/each}}
-                    {{/if}}
-                    <h3 class="brandname">Sign Up !</h3>
-                    <form  method="post" action="/register">
-                       <div class="form-group">
-                           <lable class="auth-lable"  for="username">User Name</lable>
-                           <input type="text" id="username" class="form-control" name="username" placeholder="eg: Yuvraj" required>
-                       </div>
-                       <div class="form-group">
-                           <lable class="auth-lable" for="mobile-number">Mobile Number</lable>
-                           <input type="tel" id="mobile-number" class="form-control" name="mobileNumber" placeholder="eg:9876543210" required>
-                       </div>
-                       <div class="form-group">
-                           <lable class="auth-lable" for="email">Email</lable>
-                           <input type="text" id="email" class="form-control" name="email"  placeholder="eg: helpdesk@vpageinc.com" required>
-                       </div>
-                       <div class="form-group">
-                           <lable class="auth-lable" for="password">Password</lable>
-                           <input type="password" id="password" placeholder="********" class="form-control" name="password" required>
-                       </div>
-                       <div class="form-group">
-                           <lable class="auth-lable" for="confirm-password">Confirm Password</lable>
-                           <input type="password" id="confirm-password" placeholder="*********" class="form-control" name="confirmPassword">
-                       </div>
-                       <div class="form-group">
-                           <lable class="auth-lable">
-                               <input type="checkbox" checked="checked" name="terms" id="terms" value="Yes"> I Agree to <span >
-                                   <a href="#" class="brand-secondary">Terms of Service</a>
-                                   </span> and <span ><a href="#" class="brand-secondary">Privacy policy</a></span>
-                           </lable>
-                       </div>
-                       <button type="submit" id="signUp" class="btn btn-info">Sign up</button>
-                    </form>
-                </div>
-                <div class="col-xs-offset-3 col-xs-6">
-                    <br>
-                    <p>You Can also Sign in <a href="#" class="brand-secondary">here</a></p>
+<section id="brand-name">
+    <div class="jumbotron">
+        <h2 class="text-center">Fly Tourist Global Service Pvt Ltd</h2>
+    </div>
+</section>
+<section id="sWelcome">
+    <div class="container">
+        <div class="row ">
+            <div class="col-xs-12 col-sm-12 col-md-7 col-lg-7">
+                        {{#if errors}}
+                                {{#each errors}}
+                                    <div class="alert alert-danger">
+                                        {{message}} 
+                                    </div>
+                                {{/each}}
+                        {{/if}}
+        
+                <div class="tabContainer">
+                    <!-- Nav tabs -->
+                    <ul class="nav nav-tabs" role="tablist">
+                        <li role="presentation" class="active">
+                            <a href="#signUpWrapper" aria-controls="home" role="tab" data-toggle="tab">SignUp</a></li>
+                        <li role="presentation">
+                            <a href="#signInWrapper" aria-controls="profile" role="tab" data-toggle="tab">SignIn</a></li>
+                    </ul>
+
+                    <!-- Tab panes -->
+                    <div class="tab-content">
+                        <div role="tabpanel" class="tab-pane active" id="signUpWrapper">
+                                <h3>Sign Up !</h3>
+                                <form  method="post" action="/register">
+                                    <div class="form-group">
+                                        <lable for="username">User Name</lable>
+                                        <input type="text" id="username" class="form-control" name="username" placeholder="eg: Yuvraj" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <lable  for="mobileNumber">Mobile Number</lable>
+                                        <input type="tel" id="mobileNumber" class="form-control" name="mobileNumber" placeholder="eg:9876543210" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <lable  for="email">Email</lable>
+                                        <input type="text" id="email" class="form-control" name="email"  placeholder="eg: helpdesk@vpageinc.com" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <lable  for="password">Password</lable>
+                                        <input type="password" id="password" placeholder="********" class="form-control" name="password" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <lable  for="confirmPassword">Confirm Password</lable>
+                                        <input type="password" id="confirmPassword" placeholder="*********" class="form-control" name="confirmPassword">
+                                    </div>
+                                    <div class="form-group">
+                                        <lable>
+                                            <input type="checkbox" checked="checked" name="terms" id="terms" value="Yes"> I Agree to <span >
+                                                <a href="#" class="brand-secondary">Terms of Service</a>
+                                                </span> and <span ><a href="#" class="brand-secondary">Privacy policy</a></span>
+                                        </lable>
+                                    </div>
+                                    <button type="submit" id="signUp" class="btn btn-info">Sign up</button>
+                                </form>
+                        </div>
+                        <div role="tabpanel" class="tab-pane" id="signInWrapper">
+                            <h3>Sign In !</h3>
+                            <form action="/login" method="post">
+                                    <div class="form-group">
+                                        <lable  for="mobileNumber">Mobile Number</lable>
+                                        <input type="tel" id="mobileNumber" class="form-control" name="mobileNumber" placeholder="eg:9876543210" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <lable for="password">Password</lable>
+                                        <input type="text" id="password" class="form-control" name="password" placeholder="eg: Yuvraj" required>
+                                    </div>
+
+                                    <a href="#">Forgotten Password ?</a> <br/>
+                                    <button type="submit" id="signIn" class="btn btn-info">Sign in</button>
+                                </form>
+                            </form>
+                        </div>
+                    </div>
                 </div>
             </div>
+                {{!-- end of auth wrapper --}}
+            <div class="col-xs-12 col-sm-12 col-md-5 col-lg-5 testimonial-wrapper">
+                testimonial wrapper ...
+            </div>
+                {{!--end of testimonial wrapper --}}
         </div>
-        <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 testimonial-wrapper">
-            testimonial wrapper ...
-        </div>
+            {{!--end of row--}}
     </div>
-</div>
+        {{!-- end of container--}}
+</section>
+    {{!-- end of sWelcome--}}

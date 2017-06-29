@@ -11,6 +11,16 @@ const createUser = (username,mobileNumber,email,password,terms) => {
                 })
 }
 
+const viewAllUsers = () => {
+    return User.findAll();
+}
+
+const viewUser = (id) => {
+    return User.findOne({id});
+}
+
 module.exports ={
-    createUser
+    createUser,
+    viewUser,
+    viewAllUsers,
 }

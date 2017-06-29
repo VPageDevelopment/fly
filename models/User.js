@@ -17,21 +17,23 @@ const User = sequelize.define('user',{
         }
     },
     mobileNumber:{
-        type:Sequelize.INTEGER.UNSIGNED,
+        type:Sequelize.BIGINT,
         unique:true,
         allowNull:false,
         validate:{
-           isInt:{
+           not:{
+               args:["[a-z]",'i'],
                msg:"Please enter a valid number"
            },
            len:{
-               args:[10,15],
+               args:[10,20],
                msg:"Min length of the phone number is 10"
            }
         }
     },
     email:{
         type:Sequelize.STRING,
+        unique:true,
         validate:{
             isEmail:{
                 msg:"Please enter a valid email"
@@ -50,6 +52,12 @@ const User = sequelize.define('user',{
     terms:{
         type:Sequelize.ENUM,
         values:['Yes','No']
+    },
+    status:{
+        type:Sequelize.ENUM,
+        values:['Yes','No'],
+        allowNull:false,
+        defaultValue:'No',
     }
 } , {version:true});
     return User;

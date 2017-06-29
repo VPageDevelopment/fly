@@ -1,31 +1,9 @@
-.car-bg{
-  background-image: url("/images/home_car_bg.jpg");
-  background-size:cover;
-  width:100vw;
-  height: 100vh;
+.jumbotron{
+    padding: 10px !important;
 }
-
-.auth-wrapper , .testimonial-wrapper{
-    min-height: 100vh;
-    padding: 2vh;
+lable[for="mobileNumber"]{
+    display: block !important;
 }
-
-.auth-wrapper{
-    background-color:rgba(172, 141, 131, 0.58);
-}
-.auth-wrapper .brandname{
-    color:white;
-}
-.auth-form-wrapper{
-    color:inherit;
-    background-color:#884d13;
-    padding: 12px;
-}
-
-.auth-lable{
-    color:white !important;
-}
-
-.brand-secondary {
-    color:teal;    
+.intl-tel-input, .allow-dropdown {
+    width:100% !important;
 }

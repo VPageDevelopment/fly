@@ -6,7 +6,7 @@ const { getError } = require('../helper/error.js');
 router.get('/', function(req, res, next) {
   res.render('index');
 });
-// post for resgister ...
+// post for register ...
 router.post('/register', function(req, res, next) {
   let 
     username = req.body.username,
@@ -15,6 +15,12 @@ router.post('/register', function(req, res, next) {
     password = req.body.password,
     confirmPassword = req.body.confirmPassword,
     terms = req.body.terms;
+
+    if(mobileNumber.charAt(0) === '+'){
+      mobileNumber = mobileNumber.substr(1);
+    }
+    
+    console.log(mobileNumber);
 
     // uncheck 
     if (terms === undefined) terms = "No"
@@ -27,12 +33,13 @@ router.post('/register', function(req, res, next) {
       password,
       terms
     ) .then(()=>{
-        req.flash('successMsg' , 'you are registered successfully .. ');
+        req.flash('successMsg' , 'you are registered successfully.. ');
         res.redirect('/user/dashboard');
       })
       .catch((e)=>{
         var vErr = getError(e); // vErr stands for validation error ...
         console.log(vErr);
+
         // if it has any error //
         if(vErr) res.render('index', {errors:vErr})
       })
