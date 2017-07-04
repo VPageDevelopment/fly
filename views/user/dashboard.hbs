@@ -1,6 +1,11 @@
 <div class="container">
 	{{> errors}}
 	<div class="row">
-		<h1>User dashborad</h1>
+		<h1>
+			User dashborad
+			{{#if userID}}
+				<p> of {{userID}}</p>
+			{{/if}}
+		</h1>
 	</div>
 </div>

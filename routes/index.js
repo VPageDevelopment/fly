@@ -4,7 +4,7 @@ const {
         renderIndex,
         registerUser,
         loginUser
-      } = require("../controllers/Welcome");
+      } = require("../controllers/Index");
 
 /* GET home page. */
 router.get('/', renderIndex);

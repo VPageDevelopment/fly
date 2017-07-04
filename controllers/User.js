@@ -1,13 +1,9 @@
 const { viewAllUsers } = require('../models/methods/User');
 
 const userDashboard = (req,res,next) =>{
-     viewAllUsers()
-            .then((user)=>{
-              console.log(user.mobileNumber)
-            })
-            .catch((e)=>{
-              console.log(e)
-            })
+  const userID = req.params.id;
+  res.render('user/dashboard' , {userID});
+
 }
 
 module.exports = {

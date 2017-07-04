@@ -44,8 +44,8 @@ const User = sequelize.define('user',{
         type:Sequelize.STRING,
         validate:{
             len:{
-               args:[8,16],
-               msg:"your password min length is 8 and max length is 16"
+               args:[8,100],
+               msg:"your password min length is 8"
            }
         }
     },
