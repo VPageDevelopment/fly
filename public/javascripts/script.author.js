@@ -30,4 +30,13 @@ $(document).ready(function(){
         if($(this).val() === $('#password').val()) alert("ok password matched !")
     });
 
+    	   $.notify({
+            	icon: 'ti-gift',
+            	message: "Welcome to Fly Tourist Global Service Pvt Ltd and enjoy your booking .."
+
+            },{
+                type: 'success',
+                timer: 4000
+            });
+
 });
