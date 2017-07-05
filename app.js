@@ -6,19 +6,21 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var expressHbs = require('express-handlebars');
 var session = require('express-session');
+var SequelizeStore = require('connect-session-sequelize')(session.Store);
 var passport = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
 var flash = require('connect-flash');
 
-// importing dbConnection
 
+// importing dbConnection
 const {sequelize} = require('./config/dbConnection');
-// start the db sync ...
-sequelize.sync();
+
+// importing compare password helper function 
+const {comparePassword} = require('./helper/Auth');
 
 // importing routes ...
 var index = require('./routes/index');
-var user = require('./routes/user.js');
+var user = require('./routes/user');
 
 // app init ..
 var app = express();
@@ -40,15 +42,35 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 // Express Session 
 app.use(session({
-  secret: 'codepanda',
+  secret: 'asdasasas',
   resave: false,
   saveUninitialized: false,
+  store: new SequelizeStore({
+    db: sequelize
+  })
   //cookie: { secure: true }
 }))
+
+
+
+// start the db sync ...
+sequelize.sync();
+
+
 
 // Passport initialization ...
 app.use(passport.initialize());
 app.use(passport.session());
+
+passport.use(new LocalStrategy(
+  function(username, password, done) {
+    comparePassword(
+      username,
+      password,
+      done
+    );
+  }
+));
 
 // connect flash middleware
 app.use(flash());
@@ -76,6 +98,7 @@ app.use(function(req, res, next) {
   err.status = 404;
   next(err);
 });
+
 // error handler
 app.use(function(err, req, res, next) {
   // set locals, only providing error in development
@@ -85,4 +108,5 @@ app.use(function(err, req, res, next) {
   res.status(err.status || 500);
   res.render('error');
 });
+
 module.exports = app;

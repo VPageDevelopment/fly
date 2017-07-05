@@ -11,16 +11,12 @@ const createUser = (username,mobileNumber,email,password,terms) => {
                 })
 }
 
-const viewAllUsers = () => {
-    return User.findAll();
-}
 
-const viewUser = (id) => {
-    return User.findOne({id});
-}
+const findUserByEmail = (email) => {
+    return User.findAll({where:{email}})
+};
 
 module.exports ={
     createUser,
-    viewUser,
-    viewAllUsers,
+    findUserByEmail
 }

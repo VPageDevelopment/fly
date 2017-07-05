@@ -1,10 +1,12 @@
+const passport = require('passport');
+
 const { createUser } = require('../models/methods/User');
 const { getError } = require('../helper/Error');
-const { hashPassword } = require('../helper/Auth');
+const { hashPassword , comparePassword} = require('../helper/Auth');
 
 // to render a welcome page ...
 const renderIndex = (req,res,next) => {
-  res.render('index');
+  res.render('index' , {title:'Fly'});
 }
 
 const registerUser = (req,res,next) => {
@@ -36,8 +38,14 @@ const registerUser = (req,res,next) => {
                   hashedPassword,
                   terms
                 ) .then((user)=>{
-                    req.flash('successMsg' , 'you are registered successfully.. ');
-                    res.redirect(`/user/dashboard/${user.userID}`);
+                    // req.flash('successMsg' , 'you are registered successfully.. ');
+                    const userID = user.userID ;
+                    console.log(userID);
+                    
+                    req.login(userID ,(err)=>{
+                      res.redirect(`/user/dashboard/${userID}`);
+                    })
+
                   })
                   .catch((e)=>{
                     var vErr = getError(e); 
@@ -46,15 +54,25 @@ const registerUser = (req,res,next) => {
       })
 }
 
+passport.serializeUser(function(userID, done) {
+  done(null, userID);
+});
 
-const loginUser = (req,res,next)=>{
-    let 
-      username = req.body.username,
-      password = req.body.password;
+passport.deserializeUser(function(userID, done) {
+    done(null, userID);
+});
 
-    console.log(username + ' '+ password);
-    // res.render('index');
+
+const loginUser = () => {
+    return passport.authenticate(
+      'local', 
+      { 
+        successRedirect: '/user/dashboard',
+        failureRedirect: '/'
+      });
 }
+
+
 
 module.exports = {
     renderIndex,
