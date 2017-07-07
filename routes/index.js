@@ -4,15 +4,22 @@ const {
         renderIndex,
         registerUser,
         loginUser
-      } = require("../controllers/Index");
+      } = require("../controllers/Index"),
+
+      {loggedUserMiddleware} =require("../helper/Auth");
+
+  
 
 /* GET home page. */
-router.get('/', renderIndex);
+
+router.get('/', loggedUserMiddleware(), renderIndex);
 
 // post for register ...
-router.post('/register', registerUser);
-// post for login 
+router.post('/register', loggedUserMiddleware(), registerUser);
 
-router.post('/login', loginUser());
+// post for login
+
+router.post('/login', loggedUserMiddleware(), loginUser());
+
 
 module.exports = router;

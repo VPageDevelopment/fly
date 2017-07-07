@@ -56,22 +56,6 @@ app.use(session({
 // start the db sync ...
 sequelize.sync();
 
-
-
-// Passport initialization ...
-app.use(passport.initialize());
-app.use(passport.session());
-
-passport.use(new LocalStrategy(
-  function(username, password, done) {
-    comparePassword(
-      username,
-      password,
-      done
-    );
-  }
-));
-
 // connect flash middleware
 app.use(flash());
 
@@ -82,6 +66,30 @@ app.use((req,res,nxt)=>{
   res.locals.error = req.flash('error');
   nxt();
 });
+
+
+// Passport initialization ...
+app.use(passport.initialize());
+app.use(passport.session());
+
+passport.use('local',new LocalStrategy({
+    usernameField:'email',
+    passwordField:'password',
+    passReqToCallback:true
+  },
+  function(req,email, password, done) {
+    comparePassword(
+      req,
+      email,
+      password,
+      done
+    );
+  }
+));
+
+
+
+
 
 
 // Appling route to the particular router ...

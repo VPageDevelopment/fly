@@ -1,11 +1,15 @@
 const passport = require('passport');
-const { viewAllUsers } = require('../models/methods/User');
+const { findUserByID } = require('../models/methods/User');
 
 const userDashboard = (req,res,next) =>{
-  const userID = req.params.id;
-  console.log(req.user);
-  console.log(req.isAuthenticated());
-  res.render('user/dashboard' , {userID ,title:"Dashboard"});
+    findUserByID(req.user).then((user)=>{
+        const userObj = user[0].dataValues;
+        console.log(userObj)
+        res.render('user/dashboard' , {user:userObj ,title:"Dashboard"});
+    })
+//   console.log(req.user);
+//   console.log(req.isAuthenticated());
+
 }
 
 const logoutUser = (req,res)=>{

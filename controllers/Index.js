@@ -1,12 +1,13 @@
 const passport = require('passport');
-
+const flash = require('connect-flash');
 const { createUser } = require('../models/methods/User');
 const { getError } = require('../helper/Error');
-const { hashPassword , comparePassword} = require('../helper/Auth');
+const { hashPassword} = require('../helper/Auth');
 
 // to render a welcome page ...
 const renderIndex = (req,res,next) => {
-  res.render('index' , {title:'Fly'});
+
+  res.render('index' , {title:'Fly',message: req.flash('error')});
 }
 
 const registerUser = (req,res,next) => {
@@ -38,11 +39,9 @@ const registerUser = (req,res,next) => {
                   hashedPassword,
                   terms
                 ) .then((user)=>{
-                    // req.flash('successMsg' , 'you are registered successfully.. ');
-                    const userID = user.userID ;
-                    console.log(userID);
                     
-                    req.login(userID ,(err)=>{
+                    const userID = user.userID ;
+                    req.login(userID,(err)=>{
                       res.redirect(`/user/dashboard/${userID}`);
                     })
 
@@ -68,10 +67,11 @@ const loginUser = () => {
       'local', 
       { 
         successRedirect: '/user/dashboard',
-        failureRedirect: '/'
+        failureRedirect: '/',
+        // badRequestMessage : 'Missing username or password.',
+        failureFlash : true 
       });
 }
-
 
 
 module.exports = {
