@@ -1,25 +1,26 @@
+'use strict';
+
 const {User}  = require('../../config/dbConnection');
 
-const createUser = (username,mobileNumber,email,password,terms) => {
-    return User
-                .create({
-                    username:username,
-                    mobileNumber:mobileNumber,
-                    email:email,
-                    password:password,
-                    terms:terms
+const createUser = (username,mobileNumber,email,password,terms,emailToken) => {
+    return User.create({
+                    username,
+                    mobileNumber,
+                    email,
+                    password,
+                    terms,
+                    emailToken
                 })
 }
 
 
-const findUserByEmail = (email) => {
-    return User.findAll({where:{email}})
-};
+const findUserByEmail = email => User.findAll({where:{email}})
+
 
 const findUserByID = (id) => {
     return User.findAll({
         attributes:[
-                        'username', 
+                        'username',
                         'mobileNumber',
                         'email',
                         'terms'
@@ -28,8 +29,17 @@ const findUserByID = (id) => {
     })
 };
 
+const checkUserStatus = userID => {
+    return User.findAll({
+            attributes:['status'],
+            where:{userID}
+    }).then(u =>u[0].dataValues.status);
+};
+
+
 module.exports = {
     createUser,
     findUserByEmail,
-    findUserByID    
+    findUserByID,
+    checkUserStatus
 }

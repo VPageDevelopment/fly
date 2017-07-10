@@ -1,10 +1,13 @@
+'use strict';
+
 const passport = require('passport');
-const { findUserByID } = require('../models/methods/User');
+const { findUserByID  } = require('../models/methods/User');
 
 const userDashboard = (req,res,next) =>{
     findUserByID(req.user).then((user)=>{
         const userObj = user[0].dataValues;
-        console.log(userObj)
+        console.log(userObj);
+        console.log(req.user);
         res.render('user/dashboard' , {user:userObj ,title:"Dashboard"});
     })
 //   console.log(req.user);
@@ -18,7 +21,12 @@ const logoutUser = (req,res)=>{
     res.redirect('/');
 }
 
+const notifyEmailVerification = (req, res)=>{
+    res.render('user/notifyUserEmailVerification');
+}
+
 module.exports = {
     userDashboard,
-    logoutUser
+    logoutUser,
+    notifyEmailVerification
 }

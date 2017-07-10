@@ -1,3 +1,4 @@
+'use strict';
 module.exports = (sequelize , Sequelize) => {
 const User = sequelize.define('user',{
     userID:{
@@ -53,11 +54,14 @@ const User = sequelize.define('user',{
         type:Sequelize.ENUM,
         values:['Yes','No']
     },
+    emailToken:{
+        type:Sequelize.STRING
+    },
     status:{
         type:Sequelize.ENUM,
-        values:['Yes','No'],
+        values:['active','inactive'],
         allowNull:false,
-        defaultValue:'No',
+        defaultValue:'inactive',
     }
 } , {version:true});
     return User;

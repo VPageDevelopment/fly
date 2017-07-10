@@ -1,5 +1,6 @@
 const bcrypt = require('bcrypt');
-const {findUserByEmail} = require('../models/methods/User');
+const passport = require('passport');
+const {findUserByEmail , checkUserStatus} = require('../models/methods/User');
 
 const hashPassword = (password) => {
     return new Promise((resolve, reject) => {
@@ -10,17 +11,24 @@ const hashPassword = (password) => {
     });
 };
 
+
 const authenticationMiddleware = () => {
-    return (req, res, next) => {
-        if (req.isAuthenticated()) return next();
-        res.redirect('/')
-    }
+        return (req, res, next) => {
+            checkUserStatus(req.user).then(status => {
+                if (req.isAuthenticated() && status === 'active') {
+                    return next();
+                }else if(req.isAuthenticated() && status === 'inactive'){
+                   return  res.redirect('/user/notify-email-verification');
+                }
+                return res.redirect('/');
+            })
+        }
 };
 
 const loggedUserMiddleware = () => {
     return (req, res, next) => {
         if (!req.isAuthenticated()) return next();
-        res.redirect('/user/dashboard')
+        res.redirect('/user/dashboard');
     }
 };
 
