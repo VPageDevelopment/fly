@@ -11,7 +11,6 @@ const hashPassword = (password) => {
     });
 };
 
-
 const authenticationMiddleware = () => {
         return (req, res, next) => {
             checkUserStatus(req.user).then(status => {

@@ -10,12 +10,11 @@ const createUser = (username,mobileNumber,email,password,terms,emailToken) => {
                     password,
                     terms,
                     emailToken
-                })
+                });
 }
 
 
-const findUserByEmail = email => User.findAll({where:{email}})
-
+const findUserByEmail = email => User.findAll({where:{email}});
 
 const findUserByID = (id) => {
     return User.findAll({
@@ -36,10 +35,17 @@ const checkUserStatus = userID => {
     }).then(u =>u[0].dataValues.status);
 };
 
-
+const checkActivationKey =  activationKey => {
+    return User.findAll({where:{emailToken:activationKey}})
+        .then(user => user.updateAttributes({
+            status:"active"
+        }));    
+} 
+    
 module.exports = {
     createUser,
     findUserByEmail,
     findUserByID,
-    checkUserStatus
+    checkUserStatus,
+    checkActivationKey
 }

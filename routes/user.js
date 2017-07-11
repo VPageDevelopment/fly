@@ -4,7 +4,8 @@ var router = express.Router();
 const {authenticationMiddleware} = require('../helper/Auth');
 const {
         logoutUser,
-        notifyEmailVerification
+        notifyEmailVerification,
+        activateUser
        } = require('../controllers/User');
 
 const {userDashboard} = require('../controllers/User'); 
@@ -14,6 +15,8 @@ router.get('/dashboard/:id?', authenticationMiddleware(), userDashboard);
 // Get route for logout the user from the dashboard ...
 
 router.get('/notify-email-verification' , notifyEmailVerification);
+
+router.post('accounts/activate/:activationKey', activateUser)
 
 router.get('/logout',logoutUser)
 

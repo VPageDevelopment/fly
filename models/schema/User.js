@@ -55,7 +55,8 @@ const User = sequelize.define('user',{
         values:['Yes','No']
     },
     emailToken:{
-        type:Sequelize.STRING
+        type:Sequelize.STRING,
+        allowNull:false
     },
     status:{
         type:Sequelize.ENUM,

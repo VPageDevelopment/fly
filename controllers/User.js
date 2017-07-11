@@ -1,7 +1,7 @@
 'use strict';
 
 const passport = require('passport');
-const { findUserByID  } = require('../models/methods/User');
+const { findUserByID , checkActivationKey } = require('../models/methods/User');
 
 const userDashboard = (req,res,next) =>{
     findUserByID(req.user).then((user)=>{
@@ -10,8 +10,8 @@ const userDashboard = (req,res,next) =>{
         console.log(req.user);
         res.render('user/dashboard' , {user:userObj ,title:"Dashboard"});
     })
-//   console.log(req.user);
-//   console.log(req.isAuthenticated());
+  console.log(req.user);
+  console.log(req.isAuthenticated());
 
 }
 
@@ -25,8 +25,14 @@ const notifyEmailVerification = (req, res)=>{
     res.render('user/notifyUserEmailVerification');
 }
 
+const activateUser =(req,res)=>{
+    const activateToken = req.params.activationKey;
+    checkActivationKey(activateToken).then(r =>console.log(r));
+}
+
 module.exports = {
     userDashboard,
     logoutUser,
-    notifyEmailVerification
+    notifyEmailVerification,
+    activateUser
 }

@@ -2,9 +2,12 @@
 
 const passport = require('passport');
 const flash = require('connect-flash');
+const {suid} = require('rand-token');
+
 const { createUser } = require('../models/methods/User');
 const { getError } = require('../helper/Error');
 const { hashPassword} = require('../helper/Auth');
+const { Mailer } = require('../helper/Mailer');
 
 // to render a welcome page ...
 const renderIndex = (req,res,next) => {
@@ -18,12 +21,13 @@ const registerUser = (req,res,next) => {
      password = req.body.password,
      confirmPassword = req.body.confirmPassword,
      terms = req.body.terms;
+  
 
     if(mobileNumber.charAt(0) === '+'){
       mobileNumber = mobileNumber.substr(1);
     }
 
-    // console.log(mobileNumber);
+    const  emailToken = suid(64);
 
     // uncheck
     if (terms === undefined) terms = "No"
@@ -35,13 +39,17 @@ const registerUser = (req,res,next) => {
                   mobileNumber,
                   email,
                   hashedPassword,
-                  terms
+                  terms,
+                  emailToken
                 ) .then((user)=>{
-                    const userID = user.userID ;
-                    req.login(userID,(err)=>{
-                      res.redirect(`/user/dashboard/${userID}`);
-                    })
-
+                    // mailing the user activation link..
+                    Mailer(
+                      req,
+                      res,
+                      user.userID,
+                      user.emailToken,
+                      user.email
+                    );
                   })
                   .catch((e)=>{
                     var vErr = getError(e); 
