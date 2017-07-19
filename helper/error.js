@@ -1,4 +1,3 @@
-'use strict';
 const getError = (e) => {
      var sError = e.errors;
       var vError =[];

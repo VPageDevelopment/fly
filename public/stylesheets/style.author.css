@@ -1,5 +1,6 @@
 @import './pages/welcome.css';
 @import './config/intl.css';
+@import './pages/user/dashbord.css';
 
 body{
 font-family: 'Fira Sans', sans-serif;

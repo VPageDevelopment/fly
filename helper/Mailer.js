@@ -13,25 +13,25 @@ const Mailer = (req,res,userID,activationToken,userEmailID ) => {
   const userEmail = userEmailID;
 
   var data = {
-    from: 'Fly <postmaster@sandbox4729a89fdc8d493497e251c530a0e38a.mailgun.org>',
-    to: userEmail,
+    from: 'Fly <postmaster@fly.vpageinc.com>',
+    to: 'vpagedevelopment@gmail.com',
     subject: 'Please verify your Fly Account !',
     html:`
       <p>
         Hi,
         Thanks for using Fly Tourist! Please confirm your email address by clicking on the link below. 
-        ${ activationLink }
+          ${activationLink}
         If you did not sign up for a Fly Tourist account please click on the link below.
-        ${ signUpLink }
+          ${appDomain}
         Happy Booking ! Fly Tourister
       </p>
     `,
     text: `
       Hi,
       Thanks for using Fly Tourist! Please confirm your email address by clicking on the link below. 
-      ${ activationLink }
+        ${activationLink}
       If you did not sign up for a Fly Tourist account please click on the link below.
-      ${ signUpLink }
+        ${appDomain}
       Happy Booking ! Fly Tourister
     `
   };
@@ -41,6 +41,9 @@ const Mailer = (req,res,userID,activationToken,userEmailID ) => {
     req.login(userID,(err)=>{
       res.redirect(`/user/dashboard/${userID}`);
     })
+    if(error || body === 'undefind'){
+      res.redirect(`/`);
+    }
   });
 }
 

@@ -1,0 +1,19 @@
+<div class="sidebar" data-background-color="white" data-active-color="danger">
+	<div class="sidebar-wrapper">
+		<div class="logo">
+			<a href="/" class="simple-text">
+				Fly
+			</a>
+		</div>
+		{{#ifIsEqual user.role "admin"}}
+			{{> dashboard/admin/sidebar}}
+		{{/ifIsEqual}}
+		{{#ifIsEqual user.role "employee"}}
+			{{> dashboard/employee/sidebar}}
+		{{/ifIsEqual}}
+		{{#ifIsEqual user.role "user"}}
+			{{> dashboard/user/sidebar}}
+		{{/ifIsEqual}}
+	</div>			
+</div>
+

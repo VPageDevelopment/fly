@@ -1,17 +1,16 @@
 'use strict';
-
 const passport = require('passport');
-const { findUserByID , checkActivationKey } = require('../models/methods/User');
+const {findUserByID,checkActivationKey} = require('../models/methods/User');
 
 const userDashboard = (req,res,next) =>{
-    findUserByID(req.user).then((user)=>{
-        const userObj = user[0].dataValues;
-        console.log(userObj);
-        console.log(req.user);
-        res.render('user/dashboard' , {user:userObj ,title:"Dashboard"});
-    })
+    
   console.log(req.user);
   console.log(req.isAuthenticated());
+
+    findUserByID(req.user).then((user)=>{
+        const userO = user[0].dataValues;
+        res.render(`user/dashboard`, {user:userO ,title:"Dashboard"});
+    })
 
 }
 
@@ -30,9 +29,17 @@ const activateUser =(req,res)=>{
     checkActivationKey(activateToken).then(r =>console.log(r));
 }
 
+//  vendor ...
+
+const vendorIndex = (req, res)=>{
+    res.render('user/vendor');
+}
+
+
 module.exports = {
     userDashboard,
     logoutUser,
     notifyEmailVerification,
-    activateUser
+    activateUser,
+    vendorIndex,
 }

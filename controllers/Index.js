@@ -10,8 +10,9 @@ const { hashPassword} = require('../helper/Auth');
 const { Mailer } = require('../helper/Mailer');
 
 // to render a welcome page ...
+
 const renderIndex = (req,res,next) => {
-  return res.render('index' , {title:'Fly',message: req.flash('error')});
+  return res.render('index' , {title:'Fly',message:req.flash('error')});
 };
 
 const registerUser = (req,res,next) => {
@@ -21,17 +22,13 @@ const registerUser = (req,res,next) => {
      password = req.body.password,
      confirmPassword = req.body.confirmPassword,
      terms = req.body.terms;
-  
 
     if(mobileNumber.charAt(0) === '+'){
       mobileNumber = mobileNumber.substr(1);
     }
-
     const  emailToken = suid(64);
-
     // uncheck
     if (terms === undefined) terms = "No"
-
     hashPassword(password)
       .then((hashedPassword)=>{
             createUser(
@@ -42,16 +39,18 @@ const registerUser = (req,res,next) => {
                   terms,
                   emailToken
                 ) .then((user)=>{
-                    // mailing the user activation link..
-                    Mailer(
-                      req,
-                      res,
-                      user.userID,
-                      user.emailToken,
-                      user.email
-                    );
+                      console.log(user.dataValues);
+                      const 
+                        currentUser = user.dataValues,
+                        userID = user.userID;
+
+                      // console.log(userObj.userID ,userObj.emailToken,userObj.email );
+                       req.login(userID,(err)=>{
+                        res.redirect(`/user/dashboard/${userID}`);
+                      })
                   })
                   .catch((e)=>{
+                    console.log(e);
                     var vErr = getError(e); 
                     if(vErr) res.render('index', {errors:vErr})
                   })
@@ -73,11 +72,9 @@ const loginUser = () => {
       { 
         successRedirect: '/user/dashboard',
         failureRedirect: '/',
-        // badRequestMessage : 'Missing username or password.',
         failureFlash : true
       });
 }
-
 
 module.exports = {
     renderIndex,

@@ -18,86 +18,14 @@
 
                     <!-- Tab panes -->
                     <div class="tab-content">
-                        
-                        <div role="tabpanel" class="tab-pane active" id="signUpWrapper">
-                           {{#if errors}}
-                                {{#each errors}}
-                                    <div class="alert alert-danger">
-                                        {{message}} 
-                                    </div>
-                                {{/each}}
-                            {{/if}} 
-
-                            {{#if message}}
-                                {{#each message}}
-                                    <div class="alert alert-danger">
-                                        {{message}} 
-                                    </div>
-                                {{/each}}
-                            {{/if}} 
-                        
-                                <h3>Sign Up !</h3>
-                                <form  method="post" action="/register">
-                                    <div class="form-group">
-                                        <lable for="username">User Name</lable>
-                                        <input type="text" id="username" class="form-control" name="username" placeholder="eg: Yuvraj" required>
-                                    </div>
-                                    <div class="form-group">
-                                        <lable  for="mobileNumber">Mobile Number</lable>
-                                        <input type="tel" id="mobileNumber" class="form-control" name="mobileNumber" placeholder="eg:9876543210" required>
-                                    </div>
-                                    <div class="form-group">
-                                        <lable  for="email">Email</lable>
-                                        <input type="text" id="email" class="form-control" name="email"  placeholder="eg: helpdesk@vpageinc.com" required>
-                                    </div>
-                                    <div class="form-group">
-                                        <lable  for="password">Password</lable>
-                                        <input type="password" id="password" placeholder="********" class="form-control" name="password" required>
-                                    </div>
-                                    <div class="form-group">
-                                        <lable  for="confirmPassword">Confirm Password</lable>
-                                        <input type="password" id="confirmPassword" placeholder="*********" class="form-control" name="confirmPassword">
-                                    </div>
-                                    <div class="form-group">
-                                        <lable>
-                                            <input type="checkbox" checked="checked" name="terms" id="terms" value="Yes"> I Agree to <span >
-                                                <a href="#" class="brand-secondary">Terms of Service</a>
-                                                </span> and <span ><a href="#" class="brand-secondary">Privacy policy</a></span>
-                                        </lable>
-                                    </div>
-                                    <button type="submit" id="signUp" class="btn btn-info">Sign up</button>
-                                </form>
-                        </div>
-                        <div role="tabpanel" class="tab-pane" id="signInWrapper">
-                           {{#if errors}}
-                                {{#each errors}}
-                                    <div class="alert alert-danger">
-                                        {{message}} 
-                                    </div>
-                                {{/each}}
-                            {{/if}} 
-                            <h3>Sign In !</h3>
-                            <form action="/login" method="post">
-                                    <div class="form-group">
-                                        <lable  for="email">Email</lable>
-                                        <input type="tel" id="email" class="form-control" name="email" placeholder="eg:sure17@gmail.com" required>
-                                    </div>
-                                    <div class="form-group">
-                                        <lable for="password">Password</lable>
-                                        <input type="password" id="password" class="form-control" name="password" placeholder="*******" required>
-                                    </div>
-
-                                    <a href="#">Forgotten Password ?</a> <br/>
-                                    <button type="submit" id="signIn" class="btn btn-info">Sign in</button>
-                                </form>
-                            </form>
-                        </div>
+                        {{> signIn }}
+                        {{> signUp }}
                     </div>
                 </div>
             </div>
                 {{!-- end of auth wrapper --}}
             <div class="col-xs-12 col-sm-12 col-md-5 col-lg-5 testimonial-wrapper">
-                testimonial wrapper ...
+                {{> testimonial}}
             </div>
                 {{!--end of testimonial wrapper --}}
         </div>

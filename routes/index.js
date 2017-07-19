@@ -6,7 +6,6 @@ const {
         registerUser,
         loginUser
       } = require("../controllers/Index"),
-
       {loggedUserMiddleware} =require("../helper/Auth");
 
   

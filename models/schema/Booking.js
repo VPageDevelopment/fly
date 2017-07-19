@@ -1,5 +1,5 @@
 module.exports = (sequelize , Sequelize) => {
-const User = sequelize.define('user',{
+const User = sequelize.define('booking',{
     userID:{
         type:Sequelize.INTEGER.UNSIGNED,
         primaryKey:true,

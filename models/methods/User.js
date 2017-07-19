@@ -16,23 +16,25 @@ const createUser = (username,mobileNumber,email,password,terms,emailToken) => {
 
 const findUserByEmail = email => User.findAll({where:{email}});
 
-const findUserByID = (id) => {
+const findUserByID = (userID) => {
     return User.findAll({
         attributes:[
                         'username',
                         'mobileNumber',
                         'email',
-                        'terms'
+                        'role'
                     ],
-        where:{userID:id}
+        where:{userID}
     })
 };
+
+// findUserByID(1).then(u=>console.log(u));
 
 const checkUserStatus = userID => {
     return User.findAll({
             attributes:['status'],
             where:{userID}
-    }).then(u =>u[0].dataValues.status);
+    }).then(u => u[0].dataValues.status);
 };
 
 const checkActivationKey =  activationKey => {

@@ -22,13 +22,15 @@ const {comparePassword} = require('./helper/Auth');
 var index = require('./routes/index');
 var user = require('./routes/user');
 
+const {ifIsEqual} = require('./helper/HandleBar');
 // app init ..
 var app = express();
 // view engine setup
 app.engine('.hbs',expressHbs(
 	{
 		defaultLayout:'layout',
-		extname:'.hbs'
+    extname:'.hbs',
+    helpers:{ifIsEqual}
 	})
 );
 app.set('view engine', '.hbs');
@@ -54,7 +56,7 @@ app.use(session({
 
 
 // start the db sync ...
-sequelize.sync();
+sequelize.sync({force:false});
 
 // connect flash middleware
 app.use(flash());
